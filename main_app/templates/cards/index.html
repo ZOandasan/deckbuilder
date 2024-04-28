@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if request.user %}
+    <h5 style="text-align: center; ">Cards:</h5>
+    <hr>
+    <table class="highlight">
+        <thead>
+        <tr>
+            <th>Card Name:</th>
+            <th>Game:</th>
+            <th>Card Type:</th>
+            <th>Description:</th>
+            <th>Image:</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for card in cards %}
+            <tr>
+                <td>{{ card.name }}</td>
+                <td>{{ card.cardType }}</td>
+                <td>{{ card.description }}</td>
+                <td>{{ card.rarity }}</td>
+                <td><a href="{{card.frontImageURL}}">Image</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endif %}
+
+{% endblock %}

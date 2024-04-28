@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if request.user %}
+    <h5 style="text-align: center; ">Decks by {{ user.username }}:</h5>
+    <hr>
+    <table class="highlight">
+        <thead>
+        <tr>
+            <th>Deck Name:</th>
+            <th>Deck Type:</th>
+            <th>Description:</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for deck in user.deck_set.all %}
+            <tr>
+                <td>{{ deck.name }}</td>
+                <td>{{ deck.type }}</td>
+                <td>{{ deck.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endif %}
+
+{% endblock %}

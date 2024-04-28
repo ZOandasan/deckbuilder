@@ -19,8 +19,7 @@ class Deck(models.Model):
     description = models.TextField(
         default="No Description"
     )
-    game = models.CharField(
-        max_length=1,
+    game = models.IntegerField(
         choices=GAMES,
         default=GAMES[0][0]
     )
@@ -33,10 +32,9 @@ class Card(models.Model):
         
     )
     name = models.CharField(max_length=75)
-    game = models.CharField(
-        max_length=1,
+    game = models.IntegerField(
         choices=GAMES,
-        default=GAMES[1][0]
+        default=GAMES[0][0]
     )
     rarity = models.CharField(max_length=15)
     cardType = models.CharField(max_length=50)

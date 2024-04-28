@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Add the following import
 from django.http import HttpResponse
@@ -31,6 +33,26 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-def cards_index(request):
-   cards = Card.ojbects.all()
+def card_index(request):
+   cards = Card.objects.all()
    return render(request, 'cards/index.html', {'cards': cards})
+
+#Login Required Functionality
+
+#Location Functionality
+class DeckCreate(LoginRequiredMixin, CreateView):
+    model = Deck
+    fields = ['name', 'description', 'game']
+
+    def form_valid(self, form):
+      form.instance.user = self.request.user
+      return super().form_valid(form)
+   
+class DeckUpdate(LoginRequiredMixin, UpdateView):
+    model = Deck
+    fields = ['name', 'description', 'game']
+
+class DeckDelete(LoginRequiredMixin, DeleteView):
+    model = Deck
+    success_url = '/'
+   
