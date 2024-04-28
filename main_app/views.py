@@ -37,6 +37,10 @@ def card_index(request):
    cards = Card.objects.all()
    return render(request, 'cards/index.html', {'cards': cards})
 
+def deck_index(request):
+   decks = Deck.objects.all()
+   return render(request, 'decks/index.html', {'decks': decks})
+
 #Login Required Functionality
 
 #Location Functionality

@@ -11,4 +11,6 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     #CARD PATHS
     path('cards/', views.card_index, name='index'),
+    #DECK PATHS
+    path('decks/', views.deck_index, name='index'),
 ]
