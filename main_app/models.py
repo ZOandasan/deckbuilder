@@ -11,9 +11,6 @@ GAMES = (
 )
 
 class Deck(models.Model):
-    deckID = models.IntegerField(
-        
-    )
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.TextField(
@@ -28,9 +25,6 @@ class Deck(models.Model):
         return self.name
     
 class Card(models.Model):
-    cardID = models.IntegerField(
-        
-    )
     name = models.CharField(max_length=75)
     game = models.IntegerField(
         choices=GAMES,

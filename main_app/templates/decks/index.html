@@ -4,20 +4,36 @@
 {% if request.user %}
     <h5 style="text-align: center; ">Decks by {{ user.username }}:</h5>
     <hr>
+    <h5 style="text-align: center; "><button class="btn">New Deck</button></h5>
     <table class="highlight">
         <thead>
         <tr>
             <th>Deck Name:</th>
-            <th>Deck Type:</th>
+            <th>Game:</th>
             <th>Description:</th>
+            <th>View Deck:</th>
         </tr>
         </thead>
         <tbody>
             {% for deck in user.deck_set.all %}
             <tr>
                 <td>{{ deck.name }}</td>
-                <td>{{ deck.type }}</td>
+
+                {% if deck.game == 4 %}
+                <td>Yu-Gi-oh</td>
+                {% elif deck.game == 3 %}
+                <td>Pokemon</td>
+                {% elif deck.game == 2 %}
+                <td>Magic The Gathering</td>
+                {% else %}
+                <td>Unlisted</td>
+                {% endif%}
+
                 <td>{{ deck.description }}</td>
+                
+                <td>
+                    <button class="btn">View</button>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
