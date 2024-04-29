@@ -41,6 +41,10 @@ def deck_index(request):
    decks = Deck.objects.all()
    return render(request, 'decks/index.html', {'decks': decks})
 
+def deck_detail(request, deck_id):
+   deck = Deck.objects.get(id=deck_id)
+   return render(request, 'decks/detail.html', {'deck': deck})
+
 #Login Required Functionality
 
 #Location Functionality

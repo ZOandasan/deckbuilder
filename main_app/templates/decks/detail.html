@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Deck List</h1>
+
+<div class="card-panel">
+  <div class="card-content">
+    <span class="card-title">{{ deck.name }}</span>
+
+    {% if deck.game == 4 %}
+        <p>Game: Yu-Gi-oh</p>
+        {% elif deck.game == 3 %}
+        <p>Game: Pokemon</p>
+        {% elif deck.game == 2 %}
+        <p>Game: Magic The Gathering</p>
+        {% else %}
+        <p>Game: Unlisted</p>
+    {% endif%}
+    <p>Description: {{ deck.description }}</p>
+  </div>
+</div>
+
+{% endblock %}
