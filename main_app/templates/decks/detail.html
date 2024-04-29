@@ -20,4 +20,42 @@
   </div>
 </div>
 
+
+  <h5 style="text-align: center; ">Cards in Deck:</h5>
+    <hr>
+    <table class="highlight">
+        <thead>
+        <tr>
+            <th>Card Name:</th>
+            <th>Game:</th>
+            <th>Card Type:</th>
+            <th>Description:</th>
+            <th>Quantity</th>
+            <th>Image:</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for cardindeck in cardsindeck %}
+            <tr>
+                <td>{{ cardindeck.name }}</td>
+
+                {% if cardindeck.card.game == 4 %}
+                <td>Yu-Gi-oh</td>
+                {% elif cardindeck.card.game == 3 %}
+                <td>Pokemon</td>
+                {% elif cardindeck.card.game == 2 %}
+                <td>Magic The Gathering</td>
+                {% else %}
+                <td>Unlisted</td>
+                {% endif%}
+
+                <td>{{ cardindeck.card.cardType }}</td>
+                <td>{{ cardindeck.card.description }}</td>
+                <td>{{ cardindeck.quantity }}</td>
+                <td><button class="btn"><a href="{{cardindeck.card.frontImageURL}}">view</a></button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

@@ -10,6 +10,7 @@ from django.http import HttpResponse
 #Import Models from .models
 from .models import Deck
 from .models import Card
+from .models import CardInDeck
 
 
 def signup(request):
@@ -43,7 +44,11 @@ def deck_index(request):
 
 def deck_detail(request, deck_id):
    deck = Deck.objects.get(id=deck_id)
-   return render(request, 'decks/detail.html', {'deck': deck})
+   cardsindeck = CardInDeck.objects.all()
+   return render(request, 'decks/detail.html', {
+      'deck': deck,
+      'cardsindeck': cardsindeck
+   })
 
 #Login Required Functionality
 
