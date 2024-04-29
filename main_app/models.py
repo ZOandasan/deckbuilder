@@ -39,3 +39,13 @@ class Card(models.Model):
 
     def __str__(self):
         return f"Game: {self.game}, Card: {self.name}"
+    
+class CardInDeck(models.Model):
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
+    quantity = models.IntegerField(
+        default=1
+    )
+
+    def __str__(self):
+        return f"Name: {self.card.name} , Quantity: {self.quantity}"
