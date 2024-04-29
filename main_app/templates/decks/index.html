@@ -4,7 +4,7 @@
 {% if request.user %}
     <h5 style="text-align: center; ">Decks by {{ user.username }}:</h5>
     <hr>
-    <h5 style="text-align: center; "><button class="btn">New Deck</button></h5>
+    <h5 style="text-align: center; "><button class="btn"><a href="{% url 'decks_create' %}">New Deck</a></button></h5>
     <table class="highlight">
         <thead>
         <tr>

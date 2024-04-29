@@ -43,8 +43,8 @@ class Card(models.Model):
 class CardInDeck(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
     deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
-    quantity = models.IntegerField(
-        default=1
+    quantity = models.PositiveIntegerField(
+        default = 1,
     )
 
     def __str__(self):

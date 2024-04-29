@@ -17,6 +17,10 @@
         <p>Game: Unlisted</p>
     {% endif%}
     <p>Description: {{ deck.description }}</p>
+    <div class="card-action">
+      <button><a href="{% url 'decks_update' deck.id %}">Edit</a></button>
+      <button><a href="{% url 'decks_delete' deck.id %}">Delete</a></button>
+    </div>
   </div>
 </div>
 
@@ -35,7 +39,7 @@
         </tr>
         </thead>
         <tbody>
-            {% for cardindeck in cardsindeck %}
+            {% for cardindeck in deck.cardsindeck_set.all %}
             <tr>
                 <td>{{ cardindeck.name }}</td>
 

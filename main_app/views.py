@@ -52,10 +52,11 @@ def deck_detail(request, deck_id):
 
 #Login Required Functionality
 
-#Location Functionality
+#Deck Functionality
 class DeckCreate(LoginRequiredMixin, CreateView):
     model = Deck
     fields = ['name', 'description', 'game']
+    success_url = '/decks/'
 
     def form_valid(self, form):
       form.instance.user = self.request.user
@@ -64,8 +65,11 @@ class DeckCreate(LoginRequiredMixin, CreateView):
 class DeckUpdate(LoginRequiredMixin, UpdateView):
     model = Deck
     fields = ['name', 'description', 'game']
+    success_url = '/decks/'
 
 class DeckDelete(LoginRequiredMixin, DeleteView):
     model = Deck
-    success_url = '/'
+    success_url = '/decks/'
+
+#CardsInDeck Functionality
    
