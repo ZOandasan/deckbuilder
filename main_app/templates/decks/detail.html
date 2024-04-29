@@ -39,25 +39,27 @@
         </tr>
         </thead>
         <tbody>
-            {% for cardindeck in deck.cardsindeck_set.all %}
-            <tr>
-                <td>{{ cardindeck.name }}</td>
+            {% for cardindeck in cardsindeck %}
+              {% if deck.id == cardindeck.deck.id %}
+                <tr>
+                  <td>{{ cardindeck.card.name }}</td>
 
-                {% if cardindeck.card.game == 4 %}
-                <td>Yu-Gi-oh</td>
-                {% elif cardindeck.card.game == 3 %}
-                <td>Pokemon</td>
-                {% elif cardindeck.card.game == 2 %}
-                <td>Magic The Gathering</td>
-                {% else %}
-                <td>Unlisted</td>
-                {% endif%}
+                  {% if cardindeck.card.game == 4 %}
+                  <td>Yu-Gi-oh</td>
+                  {% elif cardindeck.card.game == 3 %}
+                  <td>Pokemon</td>
+                  {% elif cardindeck.card.game == 2 %}
+                  <td>Magic The Gathering</td>
+                  {% else %}
+                  <td>Unlisted</td>
+                  {% endif%}
 
-                <td>{{ cardindeck.card.cardType }}</td>
-                <td>{{ cardindeck.card.description }}</td>
-                <td>{{ cardindeck.quantity }}</td>
-                <td><button class="btn"><a href="{{cardindeck.card.frontImageURL}}">view</a></button></td>
-            </tr>
+                  <td>{{ cardindeck.card.cardType }}</td>
+                  <td>{{ cardindeck.card.description }}</td>
+                  <td>{{ cardindeck.quantity }}</td>
+                  <td><button class="btn"><a href="{{cardindeck.card.frontImageURL}}">view</a></button></td>
+                </tr>
+              {% endif %}
             {% endfor %}
         </tbody>
     </table>
