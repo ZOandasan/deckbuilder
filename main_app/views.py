@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .forms import CardInDeckForm
+
 
 # Add the following import
 from django.http import HttpResponse
@@ -72,4 +75,15 @@ class DeckDelete(LoginRequiredMixin, DeleteView):
     success_url = '/decks/'
 
 #CardsInDeck Functionality
-   
+@login_required
+def add_cardindeck(request, deck_id, card_id):
+  cardindeck = CardInDeck.objects.filter(card_id = card_id, deck_id=deck_id).first()
+  if cardindeck:
+    return redirect('detail', deck_id=deck_id)
+  form = CardInDeckForm(request.POST)
+  if form.is_valid():
+     new_cardindeck = form.save(commit=False)
+     new_cardindeck.deck_id = deck_id
+     new_cardindeck.card_id = card_id
+     new_cardindeck.save()
+  return redirect('detail', deck_id=deck_id)
