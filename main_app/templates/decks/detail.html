@@ -32,29 +32,18 @@
         <thead>
         <tr>
             <th>Card Name:</th>
-            <th>Game:</th>
             <th>Card Type:</th>
             <th>Description:</th>
             <th>Quantity</th>
             <th>View Image/Edit/Delete:</th>
         </tr>
         </thead>
+        
         <tbody>
             {% for cardindeck in cardsindeck %}
               {% if deck.id == cardindeck.deck.id %}
                 <tr>
                   <td>{{ cardindeck.card.name }}</td>
-
-                  {% if cardindeck.card.game == 4 %}
-                  <td>Yu-Gi-oh</td>
-                  {% elif cardindeck.card.game == 3 %}
-                  <td>Pokemon</td>
-                  {% elif cardindeck.card.game == 2 %}
-                  <td>Magic The Gathering</td>
-                  {% else %}
-                  <td>Unlisted</td>
-                  {% endif%}
-
                   <td>{{ cardindeck.card.cardType }}</td>
                   <td>{{ cardindeck.card.description }}</td>
                   <td>{{ cardindeck.quantity }}</td>
@@ -65,6 +54,40 @@
                   </td>
                 </tr>
               {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h5 style="text-align: center; ">Cards:</h5>
+    <hr>
+    <table class="highlight">
+        <thead>
+        <tr>
+            <th>Card Name:</th>
+            <th>Card Type:</th>
+            <th>Description:</th>
+            <th>Rarity:</th>
+            <th>Image:</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for card in cards %}
+            {% if card.game == deck.game %}
+            {% if card.id != cardindeck.card.id %}
+            <tr>
+                <td>{{ card.name }}</td>
+
+
+                <td>{{ card.cardType }}</td>
+                <td>{{ card.description }}</td>
+                <td>{{ card.rarity }}</td>
+                <td>
+                  <button class="btn"><a href="{% url 'cardsindeck_create' deck.id card.id %}">Add</a></button>
+                  <button class="btn"><a href="{{card.frontImageURL}}">view</a></button>
+                </td>
+            </tr>
+            {% endif %}
+            {% endif %}
             {% endfor %}
         </tbody>
     </table>

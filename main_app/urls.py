@@ -17,5 +17,5 @@ urlpatterns = [
     path('decks/<int:pk>/update/', views.DeckUpdate.as_view(), name='decks_update'),
     path('decks/<int:pk>/delete/', views.DeckDelete.as_view(), name='decks_delete'),
     #CARDINDECK PATHS
-    path('decks/<int:deck_id>/cardsindeck/<int:card_id>/create/', views.add_cardindeck, name='cardsindeck_create'),
+    path('decks/<int:deck_id>/cardsindeck/<int:card_id>/', views.add_cardindeck, name='cardsindeck_create'),
 ]

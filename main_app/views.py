@@ -47,10 +47,16 @@ def deck_index(request):
 
 def deck_detail(request, deck_id):
    deck = Deck.objects.get(id=deck_id)
+   cards = Card.objects.filter(game=deck.game)
    cardsindeck = CardInDeck.objects.all()
+   cards_not_in_deck = Card.objects.exclude(id__in = cardsindeck.all().values_list('id')) #Excludes all cards in any deck. I want all cards in THIS deck to be excluded.
+   
+   
    return render(request, 'decks/detail.html', {
       'deck': deck,
-      'cardsindeck': cardsindeck
+      'cards': cards,
+      'cardsindeck': cardsindeck,
+      
    })
 
 #Login Required Functionality
@@ -75,15 +81,18 @@ class DeckDelete(LoginRequiredMixin, DeleteView):
     success_url = '/decks/'
 
 #CardsInDeck Functionality
+
 @login_required
 def add_cardindeck(request, deck_id, card_id):
-  cardindeck = CardInDeck.objects.filter(card_id = card_id, deck_id=deck_id).first()
-  if cardindeck:
+    deck = Deck.objects.filter(user=request.user, id=deck_id).first()
+    card = Card.objects.get(id=card_id)
+    if deck:
+        return redirect('detail', deck_id=deck_id)
+
+    form = CardInDeckForm(request.POST)
+    if form.is_valid():
+        new_cardindeck = form.save(commit=False)
+        new_cardindeck.deck = deck
+        new_cardindeck.card = card
+        new_cardindeck.save()
     return redirect('detail', deck_id=deck_id)
-  form = CardInDeckForm(request.POST)
-  if form.is_valid():
-     new_cardindeck = form.save(commit=False)
-     new_cardindeck.deck_id = deck_id
-     new_cardindeck.card_id = card_id
-     new_cardindeck.save()
-  return redirect('detail', deck_id=deck_id)

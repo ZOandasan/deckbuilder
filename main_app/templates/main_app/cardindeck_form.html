@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if object %}
+<h1>Add Deck</h1>
+{% else %}
+<h1>Edit Deck</h1>
+{% endif %}
+  <div class="card-panel">
+    <div class="card-content">
+    <form action="" method="post" style="margin: 5%">
+      {% csrf_token %}
+      <table>
+      {{ form.as_table }}
+      </table>
+      <div class="post-btn" style="display: flex;
+        justify-content: center;
+        margin-top: inherit;">
+        <input type="submit" value="Post" class="btn" style="background-color: #DA2D7C; font-size: 2rem;">
+      </div>
+    </form>
+    </div>
+  </div>
+
+{% endblock %}
