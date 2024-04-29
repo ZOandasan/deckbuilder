@@ -17,9 +17,10 @@
         <p>Game: Unlisted</p>
     {% endif%}
     <p>Description: {{ deck.description }}</p>
-    <div class="card-action">
-      <button><a href="{% url 'decks_update' deck.id %}">Edit</a></button>
-      <button><a href="{% url 'decks_delete' deck.id %}">Delete</a></button>
+    <div class="card-action" style="text-align: center;">
+      <button><a href="{% url 'decks_update' deck.id %}">Edit Deck</a></button>
+      <button><a href="{% url 'deck_text' deck.id %}">Download Deck as Text</a></button>
+      <button><a href="{% url 'decks_delete' deck.id %}">Delete Deck</a></button>
     </div>
   </div>
 </div>
@@ -35,7 +36,7 @@
             <th>Card Type:</th>
             <th>Description:</th>
             <th>Quantity</th>
-            <th>View Image/Edit/Delete:</th>
+            <th>View Image/Delete:</th>
         </tr>
         </thead>
         
@@ -49,8 +50,7 @@
                   <td>{{ cardindeck.quantity }}</td>
                   <td>
                     <button class="btn"><a href="{{cardindeck.card.frontImageURL}}">view</a></button>
-                    <button class="btn"><a href="{{cardindeck.card.frontImageURL}}">edit</a></button>
-                    <button class="btn"><a href="{{cardindeck.card.frontImageURL}}">delete</a></button>
+                    <button class="btn"><a href="">delete</a></button>
                   </td>
                 </tr>
               {% endif %}
@@ -82,10 +82,15 @@
                 <td>{{ card.description }}</td>
                 <td>{{ card.rarity }}</td>
                 <td>
-                  <button class="btn"><a href="{% url 'cardsindeck_create' deck.id card.id %}">Add</a></button>
                   <button class="btn"><a href="{{card.frontImageURL}}">view</a></button>
+                  <form action="{% url 'cardsindeck_create' deck.id card.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ cardindeck_form.as_p }}
+                    <input type="submit" class="btn" value="Add Card">
+                  </form>
                 </td>
             </tr>
+            
             {% endif %}
             {% endif %}
             {% endfor %}
