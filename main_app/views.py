@@ -89,14 +89,13 @@ class DeckDelete(LoginRequiredMixin, DeleteView):
 def add_cardindeck(request, deck_id, card_id):
     deck = Deck.objects.filter(id=deck_id).first()
     card = Card.objects.get(id=card_id)
-    if deck:
-        return redirect('detail', deck_id=deck_id)
-
     form = CardInDeckForm(request.POST)
+    print(form)
     if form.is_valid():
         new_cardindeck = form.save(commit=False)
         new_cardindeck.deck = deck
         new_cardindeck.card = card
+        new_cardindeck.quantity = 1
         new_cardindeck.save()
     return redirect('detail', deck_id=deck_id)
 
