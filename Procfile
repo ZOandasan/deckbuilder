@@ -1,1 +1,1 @@
-web: gunicorn oandasanuniversaldeckbuilder.wsgi
+web: gunicorn deckbuilder.wsgi
